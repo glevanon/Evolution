@@ -1,0 +1,53 @@
+<html>
+<head>
+    <title>Simulation</title>
+    <script type="text/javascript" src="jquery-3.4.1.min.js"></script>
+    <script>
+
+        function draw(data) {
+          const size = data.world.size;
+          const board = Array(size).fill({}).map(ignore => Array(size).fill('&nbsp;'));
+          data.foods.forEach(f => board[f.x][f.y] = '.');
+          data.creatures.forEach(c => board[c.x][c.y] = c.props.type[0]);
+
+          $('#board').html(board.map(row => row.join('')).join('<br/>'));
+          $('#overview').html('Turn: ' + data.world.turn + '<br/>Foods: ' + data.foods.length + '<br/>Creatures: ' + data.creatures.length);
+        }
+
+        function boardClick() {
+          alert('click!');
+        }
+
+        $( document ).ready(function() {
+          setInterval(() =>
+              $.ajax({
+                url: '/api',
+              })
+                .done(draw)
+          , 1000);
+        });
+    </script>
+    <style>
+        #board {
+            font-family: "Courier New", Courier, monospace;
+            cursor: default;
+        }
+        #overview {
+            position: absolute;
+            top: 0px;
+            right: 0px;
+            margin: 15px;
+        }
+        #details {
+            float: right;
+            bottom: 0px;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="board" onclick="boardClick()"></div>
+    <div id="overview"></div>
+    <div id="details"></div>
+</body>
+</html>

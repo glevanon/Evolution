@@ -1,0 +1,12 @@
+{
+  "name": "guy-node-tutorial2",
+  "version": "1.0.3",
+  "license": "Adesa Proprietary",
+  "scripts": {
+    "start": "node index.js"
+  },
+  "devDependencies": {},
+  "dependencies": {
+    "express": "^4.17.1"
+  }
+}
